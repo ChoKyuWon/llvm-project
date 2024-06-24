@@ -5774,8 +5774,8 @@ let Predicates = [HasV8_1MMainline] in {
 // PACBTI
 let Predicates = [IsThumb2, HasV8_1MMainline, HasPACBTI] in {
 def t2PACG : V8_1MI<(outs rGPR:$Rd),
-                    (ins pred:$p, GPRnopc:$Rn, GPRnopc:$Rm),
-                    AddrModeNone, NoItinerary, "pacg${p}", "$Rd, $Rn, $Rm", "", []> {
+                    (ins GPRnopc:$Rn, GPRnopc:$Rm),
+                    AddrModeNone, NoItinerary, "pacg", "$Rd, $Rn, $Rm", "", []> {
   bits<4> Rd;
   bits<4> Rn;
   bits<4> Rm;
@@ -5803,12 +5803,12 @@ class PACBTIAut<dag iops, string asm, bit b>
 }
 }
 
-def t2AUTG  : PACBTIAut<(ins pred:$p, GPRnosp:$Ra, GPRnopc:$Rn, GPRnopc:$Rm),
-                        "autg${p}", 0>;
+def t2AUTG  : PACBTIAut<(ins GPRnosp:$Ra, GPRnopc:$Rn, GPRnopc:$Rm),
+                        "autg", 0>;
 
 let isBranch = 1, isTerminator = 1, isIndirectBranch = 1 in {
-  def t2BXAUT : PACBTIAut<(ins pred:$p, GPRnosp:$Ra, rGPR:$Rn, GPRnopc:$Rm),
-                          "bxaut${p}", 1>;
+  def t2BXAUT : PACBTIAut<(ins GPRnosp:$Ra, rGPR:$Rn, GPRnopc:$Rm),
+                          "bxaut", 1>;
 }
 }
 
